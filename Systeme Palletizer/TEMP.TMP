@@ -1,0 +1,293 @@
+//{{V2}}
+ORGANIZATION_BLOCK OB1
+TITLE= "Cyclic main program"
+
+
+AUTHOR:nb
+FAMILY:nb
+NAME:nb
+VERSION:1.0
+
+
+VAR_TEMP
+       OB1_EV_CLASS:BYTE //Bits 0-3 = 1 (Coming event), Bits 4-7 = 1 (Event class 1)
+       OB1_SCAN_1:BYTE //1 (Cold restart scan 1 of OB 1), 3 (Scan 2-n of OB 1)
+       OB1_PRIORITY:BYTE //1 (Priority of 1 is lowest)
+       OB1_OB_NUMBR:BYTE //1 (Organization block 1, OB1)
+       OB1_RESERVED_1:BYTE //Reserved for system
+       OB1_RESERVED_2:BYTE //Reserved for system
+       OB1_PREV_CYCLE:INT //Cycle time of previous OB1 scan (milliseconds)
+       OB1_MIN_CYCLE:INT //Minimum cycle time of OB1 (milliseconds)
+       OB1_MAX_CYCLE:INT //Maximum cycle time of OB1 (milliseconds)
+       OB1_DATE_TIME:DATE_AND_TIME //Date and time OB1 started
+END_VAR
+BEGIN
+
+NETWORK
+TITLE=
+//{{k}}
+
+       A    I         1.4
+       A    I         1.3  
+       S    M       100.0  
+       A(   
+       ON   I         1.5  
+       ON   I         1.7  
+       )    
+       R    M       100.0  
+       NOP  0
+NETWORK
+TITLE=
+//{{k}}
+
+       A    M       100.0
+       AN   I         0.0
+       S    M        10.0
+       A(   
+       O    I         0.0
+       ON   M       100.0
+       )    
+       R    M        10.0
+       A    M        10.0
+       =    Q         0.0
+NETWORK
+TITLE=
+//{{k}}
+
+       A    I         0.0
+       S    M        10.1  
+       A(   
+       O    I         0.1  
+       ON   M       100.0  
+       O    I         0.2  
+       O    M        20.0
+       )    
+       R    M        10.1  
+       A    M        10.1  
+       =    Q         0.1
+NETWORK
+TITLE=
+//{{k}}
+
+       A(  
+       A    I         0.3  
+       FN   M         0.3  
+       )    
+       A    I         0.2  
+       S    M        10.2  
+       A(   
+       O    I         0.4  
+       ON   M       100.0  
+       O    
+       A    M        99.3
+       A    I         0.3
+       )    
+       R    M        10.2  
+       A    M        10.2  
+       =    Q         0.2  
+NETWORK
+TITLE=
+//{{k}}
+
+       A    I         0.3  
+       A    I         0.2  
+       A    I         0.0  
+       A    M        99.0  
+       AN   I         0.5  
+       S    M        10.3  
+       A(   
+       A    I         0.4  
+       A    I         0.5  
+       AN   M        10.5
+       ON   M       100.0  
+       ON   M        99.0  
+       O    
+       A    M        99.3
+       A    I         0.3
+       )    
+       R    M        10.3  
+       A    M        10.3  
+       =    Q         0.3  
+NETWORK
+TITLE=
+//{{k}}
+
+       A    I         0.4
+       S    M        10.4
+       A(   
+       A    I         0.3
+       A(   
+       O    I         0.7
+       O    I         1.0
+       O    I         1.1
+       )    
+       ON   M       100.0
+       )    
+       R    M        10.4
+       A    M        10.4
+       =    Q         0.4
+NETWORK
+TITLE= 
+//{{k}}
+
+       A    I         0.6
+       A    I         1.2  
+       AN   M        99.3
+       S    M        10.5  
+       A(   
+       O    I         0.7  
+       ON   M       100.0  
+       )    
+       R    M        10.5  
+       A    M        10.5  
+       =    Q         0.5
+NETWORK
+TITLE=
+//{{k}}
+
+       A    I         0.7
+       AN   M        10.4
+       A    M        99.1  
+       O    
+       A(   
+       A    I         1.0  
+       AN   M        10.4
+       A    M        99.2  
+       O    
+       A    I         1.1  
+       AN   M        10.4
+       A    M        99.3  
+       )    
+       S    M        10.6  
+       A(   
+       A    I         1.0  
+       FP   M         1.0  
+       )    
+       O(   
+       A(   
+       A    I         1.1  
+       FP   M         1.1  
+       )    
+       O    I         0.6  
+       )    
+       R    M        10.6  
+       A    M        10.6  
+       =    Q         0.6
+NETWORK
+TITLE=
+//{{k}}
+
+       A    M       100.0
+       A    I         0.6  
+       A(   
+       ON   I         1.2  
+       O    
+       A    I         1.2  
+       A    M        99.3  
+       )    
+       S    M        10.7  
+       A(   
+       A    I         0.6  
+       A    I         1.2  
+       AN   M        99.3  
+       ON   M       100.0  
+       O    M         1.2  
+       )    
+       R    M        10.7  
+       A    M        10.7  
+       =    Q         0.7
+NETWORK
+TITLE=
+//{{k}}
+
+       A    I         0.4
+       CU   C0  
+       BLD  101  
+       NOP  0  
+       NOP  0  
+       A(   
+       ON   M       100.0
+       O    
+       A    M         1.2
+       A    M        99.3
+       )    
+       R    C0  
+       NOP  0  
+       LC   C0  
+       T    QW        10  
+       NOP  0
+NETWORK
+TITLE=
+//{{k}}
+
+       A(   
+       L    QW        10  
+       L    3  
+       <=I  
+       )    
+       =    M        99.0  
+NETWORK
+TITLE= 
+//{{k}}
+
+       A(   
+       L    QW        10  
+       L    1
+       ==I  
+       )    
+       =    M        99.1
+NETWORK
+TITLE= 
+//{{k}}
+
+       A(   
+       L    QW        10  
+       L    2
+       ==I  
+       )    
+       =    M        99.2
+NETWORK
+TITLE= 
+//{{k}}
+
+       A(   
+       L    QW        10  
+       L    3
+       ==I  
+       )    
+       =    M        99.3
+NETWORK
+TITLE=
+//{{k}}
+
+       A    I         0.1
+       CU   C1
+       BLD  101
+       NOP  0
+       NOP  0
+       A    M        10.2
+       FN   M       100.2
+       R    C1
+       NOP  0
+       LC   C1
+       T    QW        20
+       NOP  0
+NETWORK
+TITLE=
+//{{k}}
+
+       A(   
+       L    QW        20
+       L    2
+       ==I  
+       )    
+       =    M        20.0
+NETWORK
+TITLE=
+//{{k}}
+
+       A    I         1.2  
+       FN   M        11.2  
+       =    M         1.2  
+ 
+END_ORGANIZATION_BLOCK
